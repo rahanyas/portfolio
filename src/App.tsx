@@ -18,6 +18,12 @@ const tech_stack: string[] = [
   "Resend",
   "TypeScript",
   "Redux Toolkit",
+  "css",
+  "OAuth",
+  "Cloudinary",
+  "Scss",
+  "python",
+
 ];
 
 export default function App() {
@@ -149,20 +155,26 @@ export default function App() {
         <div className="grid md:grid-cols-3 gap-8">
           {[{
             title: "Real-time Chat App",
+            link : "https://hey-lyart.vercel.app",
+            git : "https://github.com/rahanyas/hey",
             desc: "Socket.IO based chat with rooms, typing indicators, and JWT auth.",
           }, {
-            title: "Admin Dashboard",
-            desc: "Analytics dashboard with role-based access and API integrations.",
+            title: "e-commerce",
+            link : "https://e-commerce-811r.onrender.com",
+            git : 'https://github.com/rahanyas/e-commerce',
+            desc: "shoping website for clothes for men and women",
           }, {
-            title: "Media Sharing App",
-            desc: "Upload, share and stream media with optimized backend pipelines.",
+            title: "electronics selling",
+            link : "https://progbiz-test.vercel.app/",
+            git : "https://github.com/rahanyas/React-project",
+            desc: "showing companies items ",
           }].map((p, i) => (
             <div key={i} className="fade-up group bg-white/5 border border-white/10 p-6 rounded-2xl hover:-translate-y-2 hover:shadow-2xl transition">
-              <h3 className="text-xl font-semibold mb-3">{p.title}</h3>
+              <h3 className="text-xl font-semibold mb-3 capitalize">{p.title}</h3>
               <p className="text-gray-400 text-sm mb-5">{p.desc}</p>
               <div className="flex gap-4 text-sm">
-                <a className="underline" href="#">Live</a>
-                <a className="underline" href="#">GitHub</a>
+                <a className="underline" href={p.link} target="_blank">Live</a>
+                <a className="underline" href={p.git} target="_blank">GitHub</a>
               </div>
             </div>
           ))}
@@ -176,8 +188,8 @@ export default function App() {
           Open for freelance, full-time roles, and collaborations.
         </p>
         <div className="flex justify-center gap-4">
-          <a href="mailto:your@email.com" className="px-6 py-3 rounded-xl bg-white text-black hover:scale-105 transition">Email</a>
-          <a href="#" className="px-6 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition">LinkedIn</a>
+          <a href="mailto:rahanyas3@email.com" className="px-6 py-3 rounded-xl bg-white text-black hover:scale-105 transition">Email</a>
+          <a href="https://linkedin.com/in/rahanyas-razak-89951229b" target="_blank" className="px-6 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition">LinkedIn</a>
         </div>
       </section>
 
