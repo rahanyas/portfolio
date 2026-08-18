@@ -190,6 +190,7 @@ export default function App() {
         <div className="flex justify-center gap-4">
           <a href="mailto:rahanyas3@email.com" className="px-6 py-3 rounded-xl bg-white text-black hover:scale-105 transition">Email</a>
           <a href="https://linkedin.com/in/rahanyas-razak-89951229b" target="_blank" className="px-6 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition">LinkedIn</a>
+          <a href="/RAHANYAS PP.pdf.pdf" download='rahanyas_cv.pdf' className="px-6 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition cursor-pointer">Download CV</a>
         </div>
       </section>
 

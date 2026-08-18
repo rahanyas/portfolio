@@ -4,7 +4,7 @@ A modern, responsive developer portfolio built with **React**, featuring smooth 
 
 ## 🔗 Live Demo
 
-👉 https://rahnyas.vercel.app
+👉 https://rahanyas.vercel.app
 
 ---
 
