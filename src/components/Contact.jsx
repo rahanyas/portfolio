@@ -3,9 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { Github, Instagram, Linkedin, Loader2, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
 
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.VITE_EMAILJS_PUBLIC
+// EmailJS public credentials — safe to expose in client-side code.
+const SERVICE_ID = 'service_ffuzrue'
+const TEMPLATE_ID = 'template_szmdeu8'
+const PUBLIC_KEY = 'eNPue4LfA_zKP20XW'
 
 if (PUBLIC_KEY) emailjs.init(PUBLIC_KEY)
 
@@ -31,7 +32,7 @@ export default function Contact() {
 
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
       setStatus('error')
-      setError('EmailJS keys are missing. Add the three VITE_EMAILJS_* variables in Vercel and redeploy.')
+      setError('EmailJS is unavailable right now. Please email me directly from the address below.')
       return
     }
 
