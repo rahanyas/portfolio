@@ -5,7 +5,7 @@ import { Github, Instagram, Linkedin, Loader2, Mail, MapPin, Phone, Send, Twitte
 
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 if (PUBLIC_KEY) emailjs.init(PUBLIC_KEY)
 
@@ -31,7 +31,7 @@ export default function Contact() {
 
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
       setStatus('error')
-      setError('Something went wrong please try again...')
+      setError('EmailJS keys are missing. Add the three VITE_EMAILJS_* variables in Vercel and redeploy.')
       return
     }
 
