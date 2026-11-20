@@ -5,79 +5,61 @@ import TiltCard from './TiltCard'
 
 const projects = [
   {
-    title: 'Atlas API Monitor',
+    title: 'Repeato',
+    subtitle: 'Question Paper Intelligence',
     description:
-      'A developer-focused monitoring interface for tracking endpoint health, latency trends, and incident history in real time.',
-    tags: ['Python', 'Linux', 'AWS', 'Cybersecurity'],
-    category: 'security',
+      'A full-stack platform that turns uploaded question papers into structured, searchable information — extracting questions, sub-questions, marks, sections, and year/subject metadata.',
+    tags: ['React', 'TypeScript', 'Node.js', 'Express', 'MongoDB'],
+    category: 'fullstack',
     featured: true,
     gradient: 'linear-gradient(135deg, #15181d 0%, #4b5560 45%, #9aa5b1 100%)',
-    glyph: 'A',
-    live: '#',
-    code: '#',
+    glyph: 'R',
+    live: 'https://repeato-eight.vercel.app',
+    code: 'https://github.com/rahanyas/repeato',
   },
   {
-    title: 'Aurora Analytics Dashboard',
+    title: 'COZA Store',
+    subtitle: 'E-Commerce Platform',
     description:
-      'A data-rich analytics platform with real-time charts, role-based views, and a polished dark UI for tracking business metrics.',
-    tags: ['Python', 'Node.js', 'AWS', 'REST API'],
-    category: 'backend',
+      'A full-stack clothing store with separate customer and admin workflows — authentication, product browsing, cart, orders, user management, admin CRUD, and Cloudinary uploads.',
+    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Cloudinary'],
+    category: 'fullstack',
     gradient: 'linear-gradient(135deg, #1b1f25 0%, #46505c 45%, #7d8894 100%)',
-    glyph: 'A',
-    live: '#',
-    code: '#',
+    glyph: 'C',
+    live: 'https://e-commerce-sigma-two-32.vercel.app',
+    code: 'https://github.com/rahanyas/e-commerce',
   },
   {
-    title: 'Nova Commerce Experience',
+    title: 'Port Scanner',
+    subtitle: 'Network Security Utility',
     description:
-      'A modern e-commerce storefront featuring smooth product browsing, cart flows, and conversion-focused responsive design.',
-    tags: ['Node.js', 'Vercel', 'Performance', 'Payments'],
-    category: 'cloud',
+      'A focused Python tool for identifying open ports on a target host — part of my hands-on Linux, networking, and web-security work.',
+    tags: ['Python', 'Networking', 'Security', 'CLI'],
+    category: 'security',
     gradient: 'linear-gradient(135deg, #20242a 0%, #525b66 45%, #aeb6bf 100%)',
-    glyph: 'N',
-    live: '#',
-    code: '#',
-  },
-  {
-    title: 'Pulse Task Manager',
-    description:
-      'A collaborative productivity app with drag-and-drop boards, filters, and delightful micro-interactions for daily workflows.',
-    tags: ['Node.js', 'Python', 'Linux', 'Security'],
-    category: 'backend',
-    gradient: 'linear-gradient(135deg, #14171b 0%, #3d454f 45%, #717b87 100%)',
     glyph: 'P',
-    live: '#',
-    code: '#',
+    live: null,
+    code: 'https://github.com/rahanyas/port_scanner',
   },
   {
-    title: 'Orbit Portfolio CMS',
+    title: 'APix CLI',
+    subtitle: 'Terminal HTTP Client',
     description:
-      'A content-driven portfolio system enabling easy updates to case studies, blogs, and media with a clean editorial layout.',
-    tags: ['AWS', 'Node.js', 'Linux', 'SEO'],
-    category: 'cloud',
-    gradient: 'linear-gradient(135deg, #191c21 0%, #49525d 45%, #8d98a4 100%)',
-    glyph: 'O',
-    live: '#',
-    code: '#',
-  },
-  {
-    title: 'Lumen Landing Studio',
-    description:
-      'High-converting landing pages with bold typography, animated sections, and A/B-test-friendly modular components.',
-    tags: ['Vercel', 'Render', 'Node.js', 'Marketing'],
-    category: 'cloud',
-    gradient: 'linear-gradient(135deg, #1e2228 0%, #565f6a 45%, #b7c0c9 100%)',
-    glyph: 'L',
-    live: '#',
-    code: '#',
+      'A terminal-native HTTP client to make requests, save them, and replay them with one command — with colored responses, a local collection, and automatic request history.',
+    tags: ['Node.js', 'CLI', 'REST', 'Developer Tools'],
+    category: 'tooling',
+    gradient: 'linear-gradient(135deg, #14171b 0%, #3d454f 45%, #717b87 100%)',
+    glyph: 'A',
+    live: null,
+    code: 'https://github.com/rahanyas/apix-cli',
   },
 ]
 
 const filters = [
   { id: 'all', label: 'All work' },
-  { id: 'backend', label: 'Backend' },
-  { id: 'cloud', label: 'Cloud' },
+  { id: 'fullstack', label: 'Full-stack' },
   { id: 'security', label: 'Security' },
+  { id: 'tooling', label: 'Tools' },
 ]
 
 const card = {
@@ -104,8 +86,8 @@ export default function Projects() {
           <div className="eyebrow"><Layers size={16} /> Projects</div>
           <h2 className="section-title">Selected work & featured builds</h2>
           <p className="section-subtitle">
-            A collection of projects spanning backend systems, cloud deployments, and security-minded
-            tooling. Filter by focus area to explore.
+            Real projects from my GitHub — full-stack applications, security tooling, and developer
+            utilities. Filter by focus area to explore.
           </p>
         </motion.div>
 
@@ -156,6 +138,7 @@ export default function Projects() {
                   <span className="project-category">{project.category}</span>
                 </div>
                 <h3>{project.title}</h3>
+                <span className="project-subtitle">{project.subtitle}</span>
                 <p>{project.description}</p>
                 <div className="tag-row">
                   {project.tags.map((tag) => (
@@ -163,9 +146,11 @@ export default function Projects() {
                   ))}
                 </div>
                 <div className="project-links">
-                  <a className="icon-link" href={project.live} target="_blank" rel="noreferrer">
-                    <ExternalLink size={15} /> Live
-                  </a>
+                  {project.live && (
+                    <a className="icon-link" href={project.live} target="_blank" rel="noreferrer">
+                      <ExternalLink size={15} /> Live
+                    </a>
+                  )}
                   <a className="icon-link" href={project.code} target="_blank" rel="noreferrer">
                     <Github size={15} /> Code
                   </a>

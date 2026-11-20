@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Github, Instagram, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
+import emailjs from '@emailjs/browser'
+import { Github, Instagram, Linkedin, Loader2, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
+
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+if (PUBLIC_KEY) emailjs.init(PUBLIC_KEY)
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/rahanyas', icon: <Github size={18} /> },
@@ -11,6 +18,7 @@ const socials = [
 
 export default function Contact() {
   const [status, setStatus] = useState('idle')
+  const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
 
   const onChange = (e) => {
@@ -18,11 +26,33 @@ export default function Contact() {
     setForm((f) => ({ ...f, [name]: value }))
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    // Demo-only form handler: connect to your backend/email service (e.g. Formspree, EmailJS, API) here.
-    setStatus('sent')
-    setForm({ name: '', email: '', subject: '', message: '' })
+
+    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+      setStatus('error')
+      setError('EmailJS is not configured yet. Add your keys to .env.local and restart the dev server.')
+      return
+    }
+
+    setStatus('sending')
+    setError('')
+
+    try {
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+        from_name: form.name,
+        from_email: form.email,
+        reply_to: form.email,
+        subject: form.subject,
+        message: form.message,
+        to_name: 'Rahanyas',
+      })
+      setStatus('sent')
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch (err) {
+      setStatus('error')
+      setError(err?.text || 'Could not send the message. Please try again or email me directly.')
+    }
   }
 
   return (
@@ -68,14 +98,14 @@ export default function Contact() {
                 <div className="icon"><Mail size={18} /></div>
                 <div>
                   <span>Email</span>
-                  <strong><a href="mailto:rahanyas3@gmail.com.com">rahanyas</a></strong>
+                  <strong><a href="mailto:rahanyas3@gmail.com">rahanyas3@gmail.com</a></strong>
                 </div>
               </div>
               <div className="contact-item">
                 <div className="icon"><Phone size={18} /></div>
                 <div>
                   <span>Phone</span>
-                  <strong><a href="tel:+91 7907403835">+91 7907403835</a></strong>
+                  <strong><a href="tel:+9179037403835">+91 7907403835</a></strong>
                 </div>
               </div>
               <div className="contact-item">
@@ -130,9 +160,10 @@ export default function Contact() {
                 <textarea id="message" name="message" placeholder="Tell me about your project..." value={form.message} onChange={onChange} required />
               </div>
 
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {status === 'sent' && (
                   <motion.div
+                    key="success"
                     className="form-success"
                     role="status"
                     initial={{ opacity: 0, y: -10, scale: 0.96 }}
@@ -140,15 +171,37 @@ export default function Contact() {
                     exit={{ opacity: 0, scale: 0.96 }}
                     transition={{ type: 'spring', stiffness: 320, damping: 24 }}
                   >
-                    Thanks! Your message is ready to be sent — connect this form to your email/service to receive submissions.
+                    Thanks! Your message was sent — I&apos;ll get back to you soon.
+                  </motion.div>
+                )}
+                {status === 'error' && (
+                  <motion.div
+                    key="error"
+                    className="form-error"
+                    role="alert"
+                    initial={{ opacity: 0, y: -10, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ type: 'spring', stiffness: 320, damping: 24 }}
+                  >
+                    {error}
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              <button type="submit" className="btn btn-primary" style={{ justifySelf: 'start' }}>
-                Send Message <Send size={17} />
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ justifySelf: 'start' }}
+                disabled={status === 'sending'}
+              >
+                {status === 'sending' ? (
+                  <>Sending... <Loader2 size={17} className="spin" /></>
+                ) : (
+                  <>Send Message <Send size={17} /></>
+                )}
               </button>
-              <p className="form-note">This demo form shows a success state locally. Hook it up to Formspree, EmailJS, or your own API to receive messages.</p>
+              <p className="form-note">Messages are delivered straight to my inbox via EmailJS.</p>
             </form>
           </motion.div>
         </div>
