@@ -106,7 +106,7 @@ export default function Contact() {
                 <div className="icon"><Phone size={18} /></div>
                 <div>
                   <span>Phone</span>
-                  <strong><a href="tel:+9179037403835">+91 7907403835</a></strong>
+                  <strong><a href="tel:+917907403835">+91 7907403835</a></strong>
                 </div>
               </div>
               <div className="contact-item">
